@@ -3,7 +3,8 @@ from ventilator import *
 
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import RobustScaler
-
+#https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html
+#https://www.kaggle.com/junkoda/pytorch-lstm-with-tensorflow-like-initialization/notebook
 
 #---
 data_dir = root_dir+'/ventilator-pressure-prediction'
@@ -41,7 +42,7 @@ def make_df(mode='train'):
         df = pd.read_csv(data_dir + '/test.csv')
         df.loc[:,'pressure']=-1
 
-    #### 其他特征  
+    #### 以下部分特征来自 https://www.kaggle.com/takamichitoda/ventilator-train-classification  
     def add_feature(df):
         df['time_delta'] = df.groupby('breath_id')['time_step'].diff().fillna(0) # 时间差（或持续时间）
         df['delta'] = df['time_delta'] * df['u_in'] # 吸气阀门打开值*持续时间
